@@ -2,7 +2,7 @@
 
 ## Anggota Kelompok
 | No             | Nama | NRP |
-| :----------------: | :------: | :----: |
+| :---------------- | :------ | :---- |
 | 1        |   Nafi Firdaus    | 5027231045 |
 | 2           |   Tio Axelino   | 5027231065 |
 | 3    |  Dionisius Marcel   | 5027231044 |
@@ -40,14 +40,14 @@ Banyak aplikasi bagus tidak terekspos ke pengguna yang tepat, menyebabkan rendah
 ## Dataset
 
 | Dataset             | Jenis | Link |
-| :---------------- | :------ | :----: |
+| :---------------- | :------ | :---- |
 | Google Play Apps and Games (3.4M)        |   Structured    | https://www.kaggle.com/datasets/tapive/google-play-apps-and-games |
 | cons-50           |   Unstructured   | https://www.kaggle.com/datasets/danhendrycks/icons50?utm_source=chatgpt.com |
 
 ## Teknologi yang Digunakan
 
 | Komponen         | Teknologi              | Deskripsi Singkat                                                                                        |
-| ---------------- | ---------------------- | -------------------------------------------------------------------------------------------------------- |
+| :---------------- | :---------------------- | :-------------------------------------------------------------------------------------------------------- |
 | Penyimpanan Data | **MinIO**              | Object storage (S3-compatible) untuk menyimpan data mentah, hasil ekstraksi fitur, dan hasil klasifikasi |
 | Metadata         | **Apache Hive**        | Menyediakan katalog metadata untuk file `.parquet` / `.csv` di MinIO                                     |
 | Streaming Data   | **Apache Kafka**       | Simulasi aliran data aplikasi baru yang masuk ke sistem                                                  |
