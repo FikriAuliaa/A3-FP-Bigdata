@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal Aplikasi Kristal Modern</title>
+    <style>
+      /* --- FONT & ROOT VARIABLES --- */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      :root {
+        --c-bg: #0f0f1a;
+        --c-surface: rgba(255, 255, 255, 0.05);
+        --c-surface-hover: rgba(255, 255, 255, 0.1);
+        --c-border: rgba(255, 255, 255, 0.1);
+        --c-text-primary: #f0f0f5;
+        --c-text-secondary: #a0a0b0;
+        --c-accent-primary: #8a2be2;
+        --c-accent-secondary: #4a00e0;
+        --c-accent-gradient: linear-gradient(
+          45deg,
+          var(--c-accent-primary),
+          var(--c-accent-secondary)
+        );
+        --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.2);
+        --backdrop-blur: blur(12px);
+      }
+
+      /* --- BASE & LAYOUT --- */
+      body {
+        font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--c-bg);
+        color: var(--c-text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .background-shapes {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        background: var(--c-accent-gradient);
+        opacity: 0.15;
+        filter: blur(100px);
+        animation: move 25s infinite alternate ease-in-out;
+      }
+      .shape1 {
+        width: 400px;
+        height: 400px;
+        top: -10%;
+        left: -5%;
+      }
+      .shape2 {
+        width: 500px;
+        height: 500px;
+        bottom: -15%;
+        right: -10%;
+        animation-duration: 30s;
+        animation-delay: -5s;
+      }
+
+      @keyframes move {
+        from {
+          transform: translateY(20px) translateX(50px) scale(1);
+        }
+        to {
+          transform: translateY(-40px) translateX(-60px) scale(1.2);
+        }
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 1rem;
+      }
+
+      /* --- NAVBAR --- */
+      .navbar {
+        background: var(--c-surface);
+        backdrop-filter: var(--backdrop-blur);
+        -webkit-backdrop-filter: var(--backdrop-blur);
+        padding: 1rem 2rem;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--c-border);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .navbar .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: var(--c-accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .navbar .nav-links a {
+        color: var(--c-text-primary);
+        text-decoration: none;
+        margin-left: 25px;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      .navbar .nav-links a:hover {
+        color: var(--c-accent-primary);
+      }
+
+      /* --- SECTION & CARD STYLING --- */
+      .section-block {
+        margin-bottom: 2.5rem;
+        padding: 2rem;
+        background: var(--c-surface);
+        backdrop-filter: var(--backdrop-blur);
+        -webkit-backdrop-filter: var(--backdrop-blur);
+        border: 1px solid var(--c-border);
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .section-block:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+      }
+      .section-block h2 {
+        margin-top: 0;
+        color: var(--c-text-primary);
+        font-weight: 600;
+        border-bottom: 2px solid var(--c-accent-primary);
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* --- FORMS & CONTROLS --- */
+      .form-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: flex-end;
+      }
+      .form-controls .input-group {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+      .form-controls label {
+        width: 100%;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+        color: var(--c-text-secondary);
+        font-weight: 500;
+      }
+      .form-controls input[type="text"],
+      .form-controls input[type="number"],
+      .form-controls select {
+        padding: 0.9rem;
+        border-radius: 8px;
+        border: 1px solid var(--c-border);
+        background-color: var(--c-surface);
+        color: var(--c-text-primary);
+        font-size: 1rem;
+        font-family: "Poppins", sans-serif;
+        width: 100%;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+      }
+      .form-controls input:focus,
+      .form-controls select:focus {
+        outline: none;
+        border-color: var(--c-accent-primary);
+        box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.3);
+      }
+      .form-controls button {
+        padding: 0.9rem 1.8rem;
+        background: var(--c-accent-gradient);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        height: fit-content;
+        margin-top: auto;
+        box-shadow: var(--shadow-sm);
+      }
+      .form-controls button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        filter: brightness(1.1);
+      }
+
+      /* --- RESULTS & CONTENT AREA --- */
+      .results-area h3 {
+        color: var(--c-text-secondary);
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+      .content-display-area ul,
+      .results-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        max-height: 280px;
+        overflow-y: auto;
+        border-radius: 8px;
+      }
+      .content-display-area,
+      .results-list {
+        background-color: rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--c-border);
+        border-radius: 8px;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+      }
+      .content-display-area {
+        padding: 0;
+        border: none;
+        background: none;
+      }
+      .content-display-area ul li,
+      .results-list ul li {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--c-border);
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+      }
+      .content-display-area ul li:last-child,
+      .results-list ul li:last-child {
+        border-bottom: none;
+      }
+      .results-list ul li:hover {
+        background-color: var(--c-surface-hover);
+      }
+
+      /* --- APP LIST ITEM STYLING --- */
+      .app-list-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .app-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        object-fit: cover;
+        flex-shrink: 0;
+        box-shadow: var(--shadow-sm);
+      }
+      .app-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+      .app-name {
+        font-size: 1.1em;
+        font-weight: 600;
+        color: var(--c-text-primary);
+        margin-bottom: 2px;
+      }
+      .app-details-small {
+        color: var(--c-text-secondary);
+        font-size: 0.85em;
+        line-height: 1.4;
+      }
+      .content-display-area strong {
+        color: var(--c-accent-primary);
+        font-weight: 600;
+      }
+
+      /* --- STATUS MESSAGES --- */
+      .status-message {
+        text-align: center;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+      .loading-message {
+        color: #82aaff;
+      }
+      .error-message {
+        background-color: rgba(255, 82, 82, 0.1);
+        color: #ff8a8a;
+        border: 1px solid rgba(255, 82, 82, 0.3);
+      }
+      .info-message {
+        background-color: rgba(68, 158, 224, 0.1);
+        color: #89cff0;
+        border: 1px solid rgba(68, 158, 224, 0.3);
+      }
+
+      /* --- FOOTER --- */
+      .footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding: 2rem 1rem;
+        font-size: 0.9rem;
+        color: var(--c-text-secondary);
+        border-top: 1px solid var(--c-border);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background-shapes">
+      <div class="shape shape1"></div>
+      <div class="shape shape2"></div>
+    </div>
+
+    <nav class="navbar">
+      <div class="logo">AplikasiPortal</div>
+      <div class="nav-links">
+        <a href="#">Beranda</a>
+        <a href="#" id="navLinkCategories">Kategori</a>
+        <a href="#" id="navLinkTopApps">Aplikasi Teratas</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <section id="findAppSection" class="section-block">
+        <h2>Cari Aplikasi (untuk Detail)</h2>
+        <div class="form-controls">
+          <div class="input-group" style="flex-grow: 3">
+            <input
+              type="text"
+              id="appNameQuery"
+              placeholder="Ketik nama aplikasi..."
+              required
+              minlength="2"
+            />
+          </div>
+          <button type="button" id="searchAppButton">Cari</button>
+        </div>
+        <div class="results-area">
+          <h3 id="searchResultsTitle" style="display: none">
+            Pilih Aplikasi dari Saran:
+          </h3>
+          <div id="searchResultsContainer" class="results-list"></div>
+          <div
+            id="searchStatus"
+            class="status-message"
+            style="display: none"
+          ></div>
+        </div>
+        <div class="results-area">
+          <h3 id="appDetailsTitle" style="display: none">Detail Aplikasi:</h3>
+          <div id="appDetailsContent" class="content-display-area"></div>
+          <div
+            id="detailsStatus"
+            class="status-message"
+            style="display: none"
+          ></div>
+        </div>
+      </section>
+
+      <section id="findSimilarAppSection" class="section-block">
+        <h2>Cari Aplikasi Serupa</h2>
+        <div class="form-controls">
+          <div class="input-group" style="width: 100%">
+            <input
+              type="text"
+              id="similarAppNameQuery"
+              placeholder="Ketik nama aplikasi referensi..."
+              required
+              minlength="2"
+            />
+          </div>
+        </div>
+        <div class="results-area">
+          <h3 id="similarReferenceSuggestionsTitle" style="display: none">
+            Pilih Aplikasi Referensi:
+          </h3>
+          <div
+            id="similarReferenceSuggestionsContainer"
+            class="results-list"
+          ></div>
+          <div
+            id="similarReferenceStatus"
+            class="status-message"
+            style="display: none"
+          ></div>
+        </div>
+        <div class="results-area">
+          <h3 id="similarAppsResultTitle" style="display: none">
+            Rekomendasi Aplikasi Serupa:
+          </h3>
+          <div id="similarAppsResultContent" class="content-display-area"></div>
+          <div
+            id="similarAppsStatus"
+            class="status-message"
+            style="display: none"
+          ></div>
+        </div>
+      </section>
+
+      <section id="topAppsFeatureSection" class="section-block">
+        <h2>Aplikasi Teratas</h2>
+        <div class="form-controls">
+          <div class="input-group">
+            <label for="topAppsSortBy">Urutkan berdasarkan:</label>
+            <select id="topAppsSortBy">
+              <option value="score" selected>Rating Tertinggi</option>
+              <option value="PredictedRating">Prediksi Rating Tertinggi</option>
+              <option value="minInstalls">Install Terbanyak</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="topAppsCategory">Kategori (opsional):</label>
+            <input
+              type="text"
+              id="topAppsCategory"
+              placeholder="Contoh: Tools atau kosongkan"
+            />
+          </div>
+          <div class="input-group">
+            <label for="topAppsLimit">Jumlah (1-50):</label>
+            <input
+              type="number"
+              id="topAppsLimit"
+              value="10"
+              min="1"
+              max="50"
+            />
+          </div>
+          <button type="button" id="btnFetchTopApps">Tampilkan</button>
+        </div>
+        <div class="results-area">
+          <h3 id="topAppsResultsTitle" style="display: none">
+            Daftar Aplikasi Teratas:
+          </h3>
+          <div id="topAppsList" class="content-display-area"></div>
+          <div
+            id="topAppsStatus"
+            class="status-message"
+            style="display: none"
+          ></div>
+        </div>
+      </section>
+
+      <section id="browseByCategorySection" class="section-block">
+        <h2>Jelajahi Aplikasi berdasarkan Kategori</h2>
+        <div class="form-controls">
+          <div class="input-group">
+            <label for="categoryDropdown">Pilih Kategori:</label>
+            <select id="categoryDropdown">
+              <option value="">-- Muat Kategori Dahulu --</option>
+            </select>
+          </div>
+          <button type="button" id="btnFetchCategoriesForDropdown">
+            Muat/Refresh Kategori
+          </button>
+          <button
+            type="button"
+            id="btnShowAppsForCategory"
+            style="display: none"
+          >
+            Tampilkan Aplikasi
+          </button>
+        </div>
+        <div class="results-area">
+          <h3 id="appsByCategoryTitle" style="display: none">
+            Aplikasi dalam Kategori:
+          </h3>
+          <div id="appsByCategoryList" class="content-display-area"></div>
+          <div
+            id="appsByCategoryStatus"
+            class="status-message"
+            style="display: none"
+          ></div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2025 Portal Aplikasi Keren. Semua hak dilindungi.</p>
+    </footer>
+
+    <script>
+      const API_BASE_URL = "http://localhost:5000";
+
+      // --- DOM Elements ---
+      const appNameQueryInput = document.getElementById("appNameQuery");
+      const searchAppButton = document.getElementById("searchAppButton");
+      const searchResultsTitle = document.getElementById("searchResultsTitle");
+      const searchResultsContainer = document.getElementById(
+        "searchResultsContainer"
+      );
+      const searchStatus = document.getElementById("searchStatus");
+      const appDetailsTitle = document.getElementById("appDetailsTitle");
+      const appDetailsContent = document.getElementById("appDetailsContent");
+      const detailsStatus = document.getElementById("detailsStatus");
+
+      const similarAppNameQueryInput = document.getElementById(
+        "similarAppNameQuery"
+      );
+      const similarReferenceSuggestionsTitle = document.getElementById(
+        "similarReferenceSuggestionsTitle"
+      );
+      const similarReferenceSuggestionsContainer = document.getElementById(
+        "similarReferenceSuggestionsContainer"
+      );
+      const similarReferenceStatus = document.getElementById(
+        "similarReferenceStatus"
+      );
+      const similarAppsResultTitle = document.getElementById(
+        "similarAppsResultTitle"
+      );
+      const similarAppsResultContent = document.getElementById(
+        "similarAppsResultContent"
+      );
+      const similarAppsStatus = document.getElementById("similarAppsStatus");
+
+      const topAppsSortBySelect = document.getElementById("topAppsSortBy");
+      const topAppsCategoryInput = document.getElementById("topAppsCategory");
+      const topAppsLimitInput = document.getElementById("topAppsLimit");
+      const btnFetchTopApps = document.getElementById("btnFetchTopApps");
+      const topAppsResultsTitle = document.getElementById(
+        "topAppsResultsTitle"
+      );
+      const topAppsListDiv = document.getElementById("topAppsList");
+      const topAppsStatus = document.getElementById("topAppsStatus");
+
+      const categoryDropdown = document.getElementById("categoryDropdown");
+      const btnFetchCategoriesForDropdown = document.getElementById(
+        "btnFetchCategoriesForDropdown"
+      );
+      const btnShowAppsForCategory = document.getElementById(
+        "btnShowAppsForCategory"
+      );
+      const appsByCategoryTitle = document.getElementById(
+        "appsByCategoryTitle"
+      );
+      const appsByCategoryListDiv =
+        document.getElementById("appsByCategoryList");
+      const appsByCategoryStatus = document.getElementById(
+        "appsByCategoryStatus"
+      );
+
+      // --- Helper Functions ---
+      function showStatus(element, message, type = "loading") {
+        element.textContent = message;
+        element.style.display = "block";
+        element.className = "status-message";
+        if (type === "error") element.classList.add("error-message");
+        else if (type === "info") element.classList.add("info-message");
+        else element.classList.add("loading-message");
+      }
+      function hideStatus(element) {
+        element.style.display = "none";
+        element.textContent = "";
+      }
+      function debounce(func, delay) {
+        let timeoutId;
+        return function (...args) {
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
+            func.apply(this, args);
+          }, delay);
+        };
+      }
+      function formatKey(key) {
+        return key
+          .replace(/_/g, " ")
+          .replace(/([A-Z0-9])/g, " $1")
+          .replace(/^./, (str) => str.toUpperCase())
+          .trim();
+      }
+      async function callApi(
+        endpoint,
+        statusElement,
+        contentElement,
+        titleElement,
+        loadingMessage = "Memproses..."
+      ) {
+        if (statusElement) showStatus(statusElement, loadingMessage, "loading");
+        if (contentElement) contentElement.innerHTML = "";
+        if (titleElement) titleElement.style.display = "none";
+        try {
+          const response = await fetch(`${API_BASE_URL}${endpoint}`);
+          const data = await response.json();
+          if (statusElement) hideStatus(statusElement);
+
+          const hasRelevantData =
+            data.apps ||
+            data.suggestions ||
+            data.app_details ||
+            (data.recommendations && data.recommendations.length > 0) ||
+            data.categories;
+          if (
+            titleElement &&
+            (hasRelevantData ||
+              (data.message &&
+                response.ok &&
+                !(
+                  data.suggestions &&
+                  data.suggestions.length === 0 &&
+                  data.message
+                )))
+          ) {
+            titleElement.style.display = "block";
+          }
+
+          if (!response.ok) {
+            if (contentElement)
+              showStatus(
+                contentElement,
+                `Error: ${data.message || data.error || response.statusText}`,
+                "error"
+              );
+            return null;
+          }
+          return data;
+        } catch (error) {
+          console.error(`Error fetching ${endpoint}:`, error);
+          if (statusElement) hideStatus(statusElement);
+          if (titleElement) titleElement.style.display = "block";
+          if (contentElement)
+            showStatus(
+              contentElement,
+              `Gagal menghubungi API: ${error.message}`,
+              "error"
+            );
+          return null;
+        }
+      }
+
+      function getIconUrl(iconPath) {
+        if (!iconPath || typeof iconPath !== "string") {
+          return "https://placehold.co/48x48/333/FFF?text=N/A";
+        }
+        const relativePath = iconPath.replace(/\\/g, "/");
+        const finalPath =
+          relativePath.split("dataset-gambar/")[1] || relativePath;
+        return `${API_BASE_URL}/icon/${finalPath}`;
+      }
+
+      function createAppListItem(appData, clickHandler) {
+        const li = document.createElement("li");
+        const appTitle = appData.title || appData.name;
+        const appId = appData.appId || appData.app_id;
+
+        li.innerHTML = `
+            <div class="app-list-item">
+                <img src="${getIconUrl(
+                  appData.icon_path
+                )}" class="app-icon" alt="${appTitle} icon" onerror="this.src='https://placehold.co/48x48/5c2a2a/FFF?text=X'"/>
+                <div class="app-info">
+                    <span class="app-name">${appTitle}</span>
+                    <span class="app-details-small">
+                        ${appData.genre ? `Kategori: ${appData.genre}` : ""}
+                        ${
+                          appData.score != null
+                            ? ` | Rating: ${Number(appData.score).toFixed(2)}`
+                            : ""
+                        }
+                        ${
+                          appData.minInstalls != null
+                            ? ` | Installs: ${Number(
+                                appData.minInstalls
+                              ).toLocaleString()}`
+                            : ""
+                        }
+                    </span>
+                </div>
+            </div>`;
+
+        if (clickHandler) {
+          li.dataset.appId = appId;
+          li.dataset.appName = appTitle;
+          li.addEventListener("click", function () {
+            clickHandler(this.dataset.appId, this.dataset.appName);
+          });
+        }
+        return li;
+      }
+
+      function renderAppList(containerElement, listData, clickHandler) {
+        containerElement.innerHTML = ""; // Kosongkan container
+        const ul = document.createElement("ul");
+
+        if (!listData || listData.length === 0) {
+          const li = document.createElement("li");
+          li.style.cursor = "default";
+          li.style.textAlign = "center";
+          li.style.padding = "2rem";
+          li.textContent = "Tidak ada aplikasi ditemukan.";
+          ul.appendChild(li);
+        } else {
+          listData.forEach((app) => {
+            ul.appendChild(createAppListItem(app, clickHandler));
+          });
+        }
+        containerElement.appendChild(ul);
+      }
+
+      // --- Logika untuk FITUR 1: Cari Aplikasi untuk Detail ---
+      async function performSearchSuggestionsForDetail(query) {
+        if (query.length < 2) {
+          searchResultsContainer.innerHTML = "";
+          searchResultsTitle.style.display = "none";
+          return;
+        }
+        const data = await callApi(
+          `/search_app_suggestions?q=${encodeURIComponent(query)}`,
+          searchStatus,
+          searchResultsContainer,
+          searchResultsTitle
+        );
+        if (data && data.suggestions) {
+          renderAppList(
+            searchResultsContainer,
+            data.suggestions,
+            fetchAppDetails
+          );
+        }
+      }
+      appNameQueryInput.addEventListener(
+        "input",
+        debounce(
+          (e) => performSearchSuggestionsForDetail(e.target.value.trim()),
+          400
+        )
+      );
+      searchAppButton.addEventListener("click", () =>
+        performSearchSuggestionsForDetail(appNameQueryInput.value.trim())
+      );
+
+      async function fetchAppDetails(appId, appName) {
+        const data = await callApi(
+          `/app_details_by_id/${encodeURIComponent(appId)}`,
+          detailsStatus,
+          appDetailsContent,
+          appDetailsTitle
+        );
+        appDetailsTitle.textContent = `Detail Aplikasi: ${appName}`;
+        if (data && data.app_details) {
+          const details = data.app_details;
+          let detailsHtml = `
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 1.5rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 12px;">
+                    <img src="${getIconUrl(
+                      details.icon_path
+                    )}" alt="icon" style="width: 80px; height: 80px; border-radius: 12px;"/>
+                    <div><h2 style="margin: 0; padding: 0; border: none;">${
+                      details.title
+                    }</h2><span class="app-details-small">${
+            details.genre
+          }</span></div>
+                </div>
+                <ul>`;
+          const hiddenKeys = [
+            "appid",
+            "title",
+            "genre",
+            "icon_path",
+            "features",
+            "features_kmeans",
+            "origin_path",
+          ];
+          for (const key in details) {
+            if (
+              details.hasOwnProperty(key) &&
+              !hiddenKeys.includes(key.toLowerCase())
+            ) {
+              let value = details[key];
+              if (value !== null && value !== undefined) {
+                detailsHtml += `<li><strong>${formatKey(
+                  key
+                )}:</strong> ${value}</li>`;
+              }
+            }
+          }
+          detailsHtml += "</ul>";
+          appDetailsContent.innerHTML = detailsHtml;
+        }
+      }
+
+      // --- Logika untuk FITUR 2: Cari Aplikasi Serupa ---
+      async function performSearchForSimilarReference(query) {
+        if (query.length < 2) {
+          similarReferenceSuggestionsContainer.innerHTML = "";
+          return;
+        }
+        const data = await callApi(
+          `/search_app_suggestions?q=${encodeURIComponent(query)}`,
+          similarReferenceStatus,
+          similarReferenceSuggestionsContainer,
+          similarReferenceSuggestionsTitle
+        );
+        similarAppsResultContent.innerHTML = "";
+        similarAppsResultTitle.style.display = "none";
+        if (data && data.suggestions) {
+          renderAppList(
+            similarReferenceSuggestionsContainer,
+            data.suggestions,
+            (appId, appName) => {
+              fetchSimilarApps(appName);
+              similarReferenceSuggestionsContainer.innerHTML = `<ul style="list-style:none; padding:0; margin:0;"><li style="cursor:default;"><div class="app-list-item">Aplikasi referensi dipilih: <strong>${appName}</strong></div></li></ul>`;
+            }
+          );
+        }
+      }
+      similarAppNameQueryInput.addEventListener(
+        "input",
+        debounce(
+          (e) => performSearchForSimilarReference(e.target.value.trim()),
+          400
+        )
+      );
+
+      async function fetchSimilarApps(appName) {
+        const encodedAppName = appName.replace(/\//g, "%2F");
+        const data = await callApi(
+          `/recommend_similar_app_by_name/${encodedAppName}`,
+          similarAppsStatus,
+          similarAppsResultContent,
+          similarAppsResultTitle
+        );
+        similarAppsResultTitle.textContent = `Rekomendasi Serupa untuk: ${appName}`;
+        if (data && data.recommendations) {
+          renderAppList(
+            similarAppsResultContent,
+            data.recommendations,
+            fetchAppDetails
+          );
+        }
+      }
+
+      // --- Logika untuk FITUR 3: Top Aplikasi ---
+      btnFetchTopApps.addEventListener("click", async () => {
+        const sortBy = topAppsSortBySelect.value;
+        const category = topAppsCategoryInput.value.trim();
+        let limit = parseInt(topAppsLimitInput.value);
+        let queryParams = `?sort_by=${sortBy}&limit=${limit}`;
+        if (category)
+          queryParams += `&category=${encodeURIComponent(category)}`;
+
+        topAppsResultsTitle.textContent = `Top ${limit} Aplikasi ${
+          category ? `dalam Kategori "${category}"` : ""
+        } berdasarkan ${formatKey(sortBy.replace("_", " "))}`;
+        const data = await callApi(
+          `/top_apps${queryParams}`,
+          topAppsStatus,
+          topAppsListDiv,
+          topAppsResultsTitle
+        );
+        if (data && data.apps) {
+          renderAppList(topAppsListDiv, data.apps, fetchAppDetails);
+        }
+      });
+
+      // --- Logika untuk FITUR 4: Jelajahi Aplikasi berdasarkan Kategori ---
+      async function populateCategoryDropdown() {
+        const data = await callApi(
+          "/categories",
+          appsByCategoryStatus,
+          null,
+          null
+        );
+        if (data && data.categories) {
+          categoryDropdown.innerHTML =
+            '<option value="">-- Pilih Kategori --</option>';
+          // [PERBAIKAN] Menghapus karakter '_' yang salah
+          data.categories.forEach((category) => {
+            const option = document.createElement("option");
+            option.value = category;
+            option.textContent = category;
+            categoryDropdown.appendChild(option);
+          });
+          btnShowAppsForCategory.style.display = "inline-block";
+        }
+      }
+      btnFetchCategoriesForDropdown.addEventListener(
+        "click",
+        populateCategoryDropdown
+      );
+
+      btnShowAppsForCategory.addEventListener("click", async () => {
+        const selectedCategory = categoryDropdown.value;
+        if (!selectedCategory) {
+          showStatus(appsByCategoryStatus, "Pilih kategori dahulu.", "info");
+          return;
+        }
+        appsByCategoryTitle.textContent = `Aplikasi dalam Kategori: ${selectedCategory}`;
+        const data = await callApi(
+          `/recommend_apps_by_category/${encodeURIComponent(selectedCategory)}`,
+          appsByCategoryStatus,
+          appsByCategoryListDiv,
+          appsByCategoryTitle
+        );
+        if (data && data.recommendations) {
+          renderAppList(
+            appsByCategoryListDiv,
+            data.recommendations,
+            fetchAppDetails
+          );
+        }
+      });
+
+      // Inisialisasi
+      document.addEventListener("DOMContentLoaded", populateCategoryDropdown);
+    </script>
+  </body>
+</html>
