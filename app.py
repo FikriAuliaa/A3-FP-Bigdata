@@ -1,6 +1,5 @@
 import os
 import re
-import traceback
 from flask import Flask, request, jsonify, send_from_directory # [MODIFIKASI]
 from flask_cors import CORS
 from pyspark.sql import SparkSession
@@ -11,6 +10,11 @@ from pyspark.sql.types import IntegerType, FloatType, LongType, DoubleType, Stri
 
 app = Flask(__name__)
 CORS(app) # Mengizinkan akses dari semua origin
+
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+import traceback
 
 # --- Inisialisasi Spark Session (Global) ---
 spark = SparkSession.builder.appName("AppRecommendationAPI_Final_Complete").config("spark.driver.memory", "3g").getOrCreate()
