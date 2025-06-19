@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 venv
 google-play-dataset-by-tapivedotcom*
+icon_cache

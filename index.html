@@ -263,6 +263,12 @@
         flex-shrink: 0;
         box-shadow: var(--shadow-sm);
       }
+      .app-icon {
+        transition: opacity 0.3s ease;
+      }
+      .app-icon[src="https://placehold.co/48x48/333/FFF?text=N/A"] {
+        opacity: 0.5;
+      }
       .app-info {
         display: flex;
         flex-direction: column;
@@ -638,16 +644,28 @@
             );
           return null;
         }
+      }      // Debug helper
+      function debugAppData(appData, source = "") {
+        console.group(`App Data Debug (${source})`);
+        console.log("Full app data:", appData);
+        console.log("App ID:", appData.appId || appData.app_id);
+        console.log("Icon URL:", appData.icon_url);
+        // console.log("Icon Path:", appData.icon_path);
+        console.groupEnd();
       }
 
-      function getIconUrl(iconPath) {
-        if (!iconPath || typeof iconPath !== "string") {
-          return "https://placehold.co/48x48/333/FFF?text=N/A";
+      function getIconUrl(appData) {
+        debugAppData(appData, "getIconUrl");
+        
+        // If we have icon_url from web scraping, use it
+        if (appData && appData.icon_url) {
+          console.log("Using scraped icon URL:", appData.icon_url);
+          return appData.icon_url;
         }
-        const relativePath = iconPath.replace(/\\/g, "/");
-        const finalPath =
-          relativePath.split("dataset-gambar/")[1] || relativePath;
-        return `${API_BASE_URL}/icon/${finalPath}`;
+        
+        // Fallback to default icon
+        console.log("Using default icon");
+        return "https://placehold.co/48x48/333/FFF?text=N/A";
       }
 
       function createAppListItem(appData, clickHandler) {
@@ -656,10 +674,7 @@
         const appId = appData.appId || appData.app_id;
 
         li.innerHTML = `
-            <div class="app-list-item">
-                <img src="${getIconUrl(
-                  appData.icon_path
-                )}" class="app-icon" alt="${appTitle} icon" onerror="this.src='https://placehold.co/48x48/5c2a2a/FFF?text=X'"/>
+            <div class="app-list-item">                <img src="${getIconUrl(appData)}" class="app-icon" alt="${appTitle} icon" onerror="this.src='https://placehold.co/48x48/5c2a2a/FFF?text=X'"/>
                 <div class="app-info">
                     <span class="app-name">${appTitle}</span>
                     <span class="app-details-small">
@@ -751,11 +766,10 @@
         appDetailsTitle.textContent = `Detail Aplikasi: ${appName}`;
         if (data && data.app_details) {
           const details = data.app_details;
+          debugAppData(details, "fetchAppDetails received");
+
           let detailsHtml = `
-                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 1.5rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 12px;">
-                    <img src="${getIconUrl(
-                      details.icon_path
-                    )}" alt="icon" style="width: 80px; height: 80px; border-radius: 12px;"/>
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 1.5rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 12px;">                    <img src="${getIconUrl(details)}" alt="icon" style="width: 80px; height: 80px; border-radius: 12px;"/>
                     <div><h2 style="margin: 0; padding: 0; border: none;">${
                       details.title
                     }</h2><span class="app-details-small">${
@@ -765,12 +779,14 @@
                 <ul>`;
           const hiddenKeys = [
             "appid",
+            "app_id",
             "title",
             "genre",
-            "icon_path",
+            "icon_url",
             "features",
             "features_kmeans",
             "origin_path",
+            "icon_path" // Sembunyikan path ikon lama dari dataset
           ];
           for (const key in details) {
             if (
@@ -778,11 +794,10 @@
               !hiddenKeys.includes(key.toLowerCase())
             ) {
               let value = details[key];
-              if (value !== null && value !== undefined) {
-                detailsHtml += `<li><strong>${formatKey(
-                  key
-                )}:</strong> ${value}</li>`;
+              if (value === null || value === undefined) {
+                value = 'N/A';
               }
+              detailsHtml += `<li><strong>${formatKey(key)}:</strong> ${value}</li>`;
             }
           }
           detailsHtml += "</ul>";
