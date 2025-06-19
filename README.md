@@ -1,5 +1,64 @@
 # FP-Bigdata-A3
 
+## Anggota Kelompok
+| No             | Nama | NRP |
+| :----------------: | :------: | :----: |
+| 1        |   Nafi Firdaus    | 5027231045 |
+| 2           |   Tio Axelino   | 5027231065 |
+| 3    |  Dionisius Marcel   | 5027231044 |
+| 4 |  Fikri Aulia As Sa'adi   | 5027231026 |
+| 5 |  Muhammad Andrean Rizq Prasetio    | 5027231052 |
+
+## Latar Belakang Masalah
+Google Play Store memiliki lebih dari 3 juta aplikasi, namun hanya sebagian kecil yang mendapatkan visibilitas tinggi. Sebagian besar pengguna:
+- Hanya melihat aplikasi populer atau yang ditampilkan di halaman utama
+- Tidak menemukan aplikasi yang relevan, unik, atau sesuai kebutuhan pribadi
+- Melewatkan aplikasi niche berkualitas tinggi karena kurangnya sistem rekomendasi yang menjangkau long-tail apps
+
+#### Permasalahan utama:
+Banyak aplikasi bagus tidak terekspos ke pengguna yang tepat, menyebabkan rendahnya jumlah unduhan dan potensi ekonomi yang tidak termanfaatkan.
+
+## Tujuan Proyek
+- Membangun Sistem Rekomendasi Aplikasi Otomatis Menggunakan machine learning untuk mencari aplikasi serupa berdasarkan fitur, nama, dan rating.
+
+- Menerapkan Arsitektur Data Lakehouse Menggunakan Kafka (streaming), MinIO (storage), Hive (metastore), dan Spark (analitik).
+
+- Mengintegrasikan Antarmuka Web Interaktif Website berbasis Streamlit yang memungkinkan pengguna
+
+- Mengatasi Ketimpangan Eksposur Aplikasi Long-Tail Dengan rekomendasi otomatis berdasarkan fitur konten, klasifikasi kategori, dan analisis deskriptif.
+
+### Fitur utama
+
+- Mencari aplikasi
+
+- Melihat aplikasi serupa
+
+- Melihat aplikasi teratas
+
+- Menjelajahi aplikasi per kategori
+
+## Dataset
+
+| Dataset             | Jenis | Link |
+| :---------------- | :------ | :----: |
+| Google Play Apps and Games (3.4M)        |   Structured    | https://www.kaggle.com/datasets/tapive/google-play-apps-and-games |
+| cons-50           |   Unstructured   | https://www.kaggle.com/datasets/danhendrycks/icons50?utm_source=chatgpt.com |
+
+## Teknologi yang Digunakan
+
+| Komponen         | Teknologi              | Deskripsi Singkat                                                                                        |
+| ---------------- | ---------------------- | -------------------------------------------------------------------------------------------------------- |
+| Penyimpanan Data | **MinIO**              | Object storage (S3-compatible) untuk menyimpan data mentah, hasil ekstraksi fitur, dan hasil klasifikasi |
+| Metadata         | **Apache Hive**        | Menyediakan katalog metadata untuk file `.parquet` / `.csv` di MinIO                                     |
+| Streaming Data   | **Apache Kafka**       | Simulasi aliran data aplikasi baru yang masuk ke sistem                                                  |
+| Pemrosesan Data  | **Apache Spark**       | Preprocessing, ekstraksi fitur visual (dari Icons-50), dan clustering aplikasi                           |
+| Machine Learning | **Scikit-learn**       | Algoritma klasifikasi, clustering, rekomendasi                                                           |
+| Frontend Web     |  **HTML**   | Dashboard interaktif dan API untuk mencari dan menampilkan aplikasi                                      |
+| Orkestrasi       | **Docker Compose**     | Menjalankan seluruh layanan secara terkoordinasi dalam container                                         |
+| Pengujian Upload | **Python + MinIO SDK** | Mengunggah data `.parquet` hasil Spark ke bucket MinIO                                                   |
+
+------------------------------------
+
 ## Setup Environment
 1. Install required packages:
 ```bash
